@@ -24,11 +24,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mIntent = new Intent();
-        //5.0之后必须显式声明
+        //5.0之后必须显式声明(单单设置这个的话，会报service intent must be explicit)
 //        mIntent.setPackage(getPackageName());
         //设置action
         mIntent.setAction("ggg");
-        //指的你要调的Service
+        //指的你要调的Service（设置了这个的话就不会报上述异常，但是如果你单独设置了package，没有设置Component的话，什么鸟都不会报
+        // 但是没有aidl没有效果）
         mIntent.setComponent(new ComponentName("com.example.aidlservice",
                 "com.example.aidlservice.PersonManagerService"));
         bindService(mIntent,mServiceConnection,BIND_AUTO_CREATE);
